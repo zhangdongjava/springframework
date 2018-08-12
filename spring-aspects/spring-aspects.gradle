@@ -79,16 +79,16 @@ compileTestJava {
 
 
 dependencies {
-	aspects(project(":spring-orm"))
+	compile(project(":spring-orm"))
 	ajc("org.aspectj:aspectjtools:${aspectjVersion}")
 	rt("org.aspectj:aspectjrt:${aspectjVersion}")
 	compile("org.aspectj:aspectjweaver:${aspectjVersion}")
-	optional(project(":spring-aop"))  // for @Async support
-	optional(project(":spring-beans"))  // for @Configurable support
-	optional(project(":spring-context"))  // for @Enable* support
-	optional(project(":spring-context-support"))  // for JavaMail and JSR-107 support
-	optional(project(":spring-orm"))  // for JPA exception translation support
-	optional(project(":spring-tx"))  // for JPA, @Transactional support
+	compile(project(":spring-aop"))  // for @Async support
+	compile(project(":spring-beans"))  // for @Configurable support
+	compile(project(":spring-context"))  // for @Enable* support
+	compile(project(":spring-context-support"))  // for JavaMail and JSR-107 support
+	compile(project(":spring-orm"))  // for JPA exception translation support
+	compile(project(":spring-tx"))  // for JPA, @Transactional support
 	optional("javax.cache:cache-api:1.1.0") // for JCache aspect
 	optional("javax.transaction:javax.transaction-api:1.3")  // for @javax.transaction.Transactional support
 	testCompile(project(":spring-core"))  // for CodeStyleAspect

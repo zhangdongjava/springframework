@@ -100,6 +100,7 @@ public class ResolvableType implements Serializable {
 	private final Type type;
 
 	/**
+	 *
 	 * Optional provider for the type.
 	 */
 	@Nullable
