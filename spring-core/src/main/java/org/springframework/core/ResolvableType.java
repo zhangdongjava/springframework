@@ -95,12 +95,13 @@ public class ResolvableType implements Serializable {
 
 
 	/**
+	 * 基础的java类型
 	 * The underlying Java type being managed.
 	 */
 	private final Type type;
 
 	/**
-	 *
+	 *类型可选提供者
 	 * Optional provider for the type.
 	 */
 	@Nullable
@@ -112,7 +113,7 @@ public class ResolvableType implements Serializable {
 	@Nullable
 	private final VariableResolver variableResolver;
 
-	/**
+	/**是一个组合的数据类型 或者如果需要推导就是null
 	 * The component type for an array or {@code null} if the type should be deduced.
 	 */
 	@Nullable
