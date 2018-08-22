@@ -475,6 +475,7 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 
 		// Prepare method overrides.
 		try {
+			//准备方法覆盖
 			mbdToUse.prepareMethodOverrides();
 		}
 		catch (BeanDefinitionValidationException ex) {
@@ -572,7 +573,17 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
 		// Initialize the bean instance.
 		Object exposedObject = bean;
 		try {
+			//1、先是执行InstantiationAwareBeanPostProcessor的postProcessAfterInstantiation，这里会有实例创建后的一个回调，如果是false会退出整个过程。
+			//2、完成对象的注入autowireByName/autowireByType，这里就看到很眼熟的东西了吧“autowire”。
+			//3、调用InstantiationAwareBeanPostProcessor的postProcessPropertyValues
+			//4、最后是applyPropertyValues方法，把属性值都写入
 			populateBean(beanName, mbd, instanceWrapper);
+			//1、先是invokeAwareMethods，完成BeanNameAware、BeanClassLoaderAware、BeanFactoryAware的注入
+			//2、然后是BeanPostProcessor的postProcessBeforeInitialization调用
+			//3、完成InitializingBean的调用
+			//4、然后是BeanPostProcessor的postProcessAfterInitialization调用，这里就是后面Aop中Advistor接管对象的地方啦
+			//可以看到initializeBean方法最后返回的是wrappedBean有两种可能，一种是经过BeanPostProcessor生成的对象，
+			// 如果当前bean没有注册BeanPostProcessor的话就直接返回bean自己。aop中就运用这个方法来完成代码的切面编程。
 			exposedObject = initializeBean(beanName, exposedObject, mbd);
 		}
 		catch (Throwable ex) {
